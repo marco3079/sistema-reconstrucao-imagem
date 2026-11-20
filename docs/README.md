@@ -13,3 +13,5 @@
 | `imagens/` | Prints da interface usados no README. As imagens são de exemplo. |
 
 Para instalar e usar o sistema, comece pelo [README.md](../README.md) e depois pelo [INSTALAR.md](../INSTALAR.md). Para contribuir, veja o [CONTRIBUTING.md](../CONTRIBUTING.md).
+
+As capturas de tela de `imagens/` foram feitas com uma conta de demonstração e uma foto sintética.
