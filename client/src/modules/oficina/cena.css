@@ -1,0 +1,306 @@
+/* Mapa 3D da foto (PainelCena e Cena3D). Só variáveis de tema de ui/estilo.css; as quatro cores
+   de tipo de volume são locais, só para as bolinhas e para a vista 3D. */
+
+.cena-painel {
+  --cena-pessoa: #e4572e;
+  --cena-objeto: #2e86ab;
+  --cena-parede: #8d99ae;
+  --cena-outro: #6a994e;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  container-type: inline-size;
+  container-name: cena;
+}
+
+.cena-painel .cartao-titulo {
+  margin: 0;
+}
+
+.cena-resumo,
+.cena-texto,
+.cena-ajuda,
+.cena-camera,
+.cena-estado {
+  margin: 0;
+  color: var(--cor-texto-suave);
+  line-height: 1.5;
+}
+
+.cena-estado {
+  color: var(--cor-texto);
+}
+
+.cena-avisos {
+  margin: 0;
+  padding-left: 20px;
+  color: var(--cor-texto-suave);
+  font-size: 0.9rem;
+}
+
+/* Sempre uma coluna: abas, vista, dados da câmera e, por último, a lista de volumes. */
+.cena-corpo {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  width: 100%;
+}
+
+.cena-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+.cena-volumes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.cena-subtitulo {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--cor-texto);
+}
+
+.cena-grupo-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cena-botao {
+  min-height: var(--altura-toque);
+  padding: 8px 14px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  font: inherit;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.cena-botao[aria-pressed='true'] {
+  background: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+  color: var(--cor-sobre-primaria);
+  font-weight: 600;
+}
+
+.cena-botao:hover {
+  border-color: var(--cor-primaria);
+}
+
+.cena-botao:focus-visible,
+.cena-volume:focus-visible,
+.cena-campo:focus-visible {
+  outline: 3px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+/* Contêiner da vista 3D: o canvas enche a caixa; o fundo vem do CSS. */
+.cena-vista {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  min-width: 0;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-superficie-2);
+  overflow: hidden;
+  touch-action: none;
+}
+
+.cena-vista canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cena-vista .cena-aviso {
+  margin: 0;
+  padding: 16px;
+  color: var(--cor-texto);
+}
+
+.cena-imagem {
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.cena-imagem img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: contain;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-superficie-2);
+}
+
+.cena-legenda {
+  color: var(--cor-texto-suave);
+  font-size: 0.85rem;
+}
+
+.cena-acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+/* Lista de volumes */
+.cena-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+
+.cena-volume {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  min-height: var(--altura-toque);
+  padding: 8px 10px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.cena-volume:hover {
+  border-color: var(--cor-primaria);
+}
+
+.cena-volume-ativo {
+  border-color: var(--cor-primaria);
+  background: var(--cor-primaria-suave);
+  box-shadow: inset 3px 0 0 var(--cor-primaria);
+}
+
+.cena-volume-nome {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.cena-volume-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  color: var(--cor-texto-suave);
+  font-size: 0.85rem;
+}
+
+.cena-bolinha {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.cena-bolinha-pessoa {
+  background: var(--cena-pessoa);
+}
+
+.cena-bolinha-objeto {
+  background: var(--cena-objeto);
+}
+
+.cena-bolinha-parede {
+  background: var(--cena-parede);
+}
+
+.cena-bolinha-outro {
+  background: var(--cena-outro);
+}
+
+/* Pedido de refazer */
+.cena-refazer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.cena-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+}
+
+.cena-rotulo {
+  font-weight: 600;
+  color: var(--cor-texto);
+}
+
+.cena-campo {
+  width: 100%;
+  min-height: 80px;
+  padding: 10px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  font: inherit;
+  resize: vertical;
+}
+
+.cena-campo::placeholder {
+  color: var(--cor-texto-suave);
+}
+
+.cena-form-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cena-ajuda {
+  font-size: 0.85rem;
+}
+
+/* Painel com menos de 520 px de largura: vista um pouco menor. */
+@container cena (max-width: 519px) {
+  .cena-vista {
+    height: 320px;
+  }
+}
+
+@media (max-width: 420px) {
+  .cena-painel {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .cena-botao {
+    flex: 1 1 auto;
+  }
+}

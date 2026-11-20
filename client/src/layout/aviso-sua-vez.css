@@ -1,0 +1,54 @@
+/* ===== Popup "Sua vez" (layout/AvisoSuaVez.tsx). Só variáveis de ui/estilo.css. ===== */
+
+.suavez {
+  display: grid;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.suavez-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--raio);
+  background: var(--cor-laranja-suave);
+  border: 1px solid var(--cor-laranja);
+  color: var(--cor-texto);
+  min-width: 0;
+}
+
+.suavez-imagem {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.suavez-passo {
+  margin: 0;
+  font-weight: 600;
+  color: var(--cor-texto);
+}
+
+.suavez-descricao {
+  margin: 0;
+  color: var(--cor-texto-suave);
+}
+
+.suavez-mais {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+}
+
+.suavez-link {
+  color: var(--cor-primaria);
+  font-weight: 600;
+}
+
+.suavez-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}

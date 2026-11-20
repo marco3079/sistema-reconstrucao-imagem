@@ -1,0 +1,402 @@
+/* Tela "Fluxo ao vivo". Só variáveis de tema, sem cor fixa. */
+
+.fluxo-faixa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.fluxo-area {
+  position: relative;
+  min-width: 0;
+}
+
+.fluxo-quadro {
+  position: relative;
+  width: 100%;
+  height: clamp(420px, 62vh, 720px);
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+}
+
+.fluxo-dica {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+}
+
+.fluxo-painel-area {
+  min-width: 0;
+}
+
+.fluxo-detalhe {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  width: 300px;
+  max-width: calc(100% - 24px);
+  max-height: calc(100% - 24px);
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 1rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra);
+  overflow-wrap: anywhere;
+}
+
+.fluxo-detalhe-cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.fluxo-detalhe-cabecalho .cartao-titulo {
+  margin: 0;
+}
+
+@media (max-width: 699px) {
+  .fluxo-detalhe {
+    position: static;
+    width: auto;
+    max-width: none;
+    max-height: none;
+    margin-top: 0.75rem;
+  }
+}
+
+.fluxo-papel {
+  margin: 8px 0;
+  color: var(--cor-texto);
+}
+
+.fluxo-situacao {
+  margin: 0 0 12px;
+  color: var(--cor-texto-suave);
+}
+
+.fluxo-subtitulo {
+  margin: 16px 0 8px;
+  font-size: 0.95rem;
+}
+
+.fluxo-suave {
+  color: var(--cor-texto-suave);
+}
+
+.fluxo-lista {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  min-width: 0;
+}
+
+.fluxo-lista li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  min-width: 0;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--cor-borda);
+  overflow-wrap: anywhere;
+}
+
+.fluxo-hora {
+  color: var(--cor-texto-suave);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.fluxo-evento-erro {
+  color: var(--cor-perigo);
+}
+
+.fluxo-eventos {
+  max-height: 320px;
+  overflow: auto;
+}
+
+.fluxo-baixo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+  min-width: 0;
+}
+
+@media (min-width: 900px) {
+  .fluxo-baixo {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ===== Seletor de imagem ===== */
+.fluxo-seletor {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.fluxo-seletor label {
+  font-weight: 600;
+  color: var(--cor-texto);
+}
+
+.fluxo-seletor select {
+  min-height: 36px;
+  min-width: 220px;
+  max-width: 100%;
+  padding: 0 10px;
+  font: inherit;
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+}
+
+.fluxo-seletor select:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+/* ===== Conexão da sessão ===== */
+.fluxo-conexao-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+.fluxo-conexao-pequeno {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.fluxo-comando {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.fluxo-comando code {
+  padding: 6px 10px;
+  font-size: 0.95rem;
+  color: var(--cor-texto);
+  background: var(--cor-fundo);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  overflow-wrap: anywhere;
+}
+
+/* ===== Alternador de visão ===== */
+.fluxo-alternador {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.fluxo-alternador button[aria-pressed='true'] {
+  color: var(--cor-sobre-primaria);
+  background: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+}
+
+/* ===== Visão "Agentes" ===== */
+.fluxo-visao-agentes {
+  display: block;
+  min-width: 0;
+}
+
+.fluxo-agentes {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 700px) {
+  .fluxo-agentes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .fluxo-agentes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .fluxo-visao-agentes.fluxo-com-detalhe {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 16px;
+    align-items: start;
+  }
+
+  .fluxo-agentes-detalhe {
+    position: sticky;
+    top: 12px;
+  }
+}
+
+.fluxo-agentes-detalhe {
+  margin-top: 16px;
+  min-width: 0;
+}
+
+.fluxo-agente {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  font: inherit;
+  text-align: left;
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border: 1.5px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  box-shadow: var(--sombra);
+  cursor: pointer;
+}
+
+/* O selo de estado fica do tamanho do texto, sem esticar na largura do cartão. */
+.fluxo-agente > .selo {
+  align-self: flex-start;
+}
+
+.fluxo-agente:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+.fluxo-agente-selecionado {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+.fluxo-agente-ativo {
+  border-color: var(--cor-primaria);
+  animation: fluxo-agente-brilho 1.6s infinite;
+}
+
+@keyframes fluxo-agente-brilho {
+  0% {
+    box-shadow: var(--sombra), 0 0 0 0 var(--cor-primaria);
+  }
+  100% {
+    box-shadow: var(--sombra), 0 0 0 8px transparent;
+  }
+}
+
+.fluxo-agente-topo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.fluxo-agente-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--cor-fundo);
+  color: var(--cor-texto-suave);
+}
+
+.fluxo-agente-titulos {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.fluxo-agente-texto {
+  font-size: 0.85rem;
+  line-height: 1.35;
+  color: var(--cor-texto);
+  overflow-wrap: anywhere;
+}
+
+.fluxo-agente-passo {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+}
+
+.fluxo-cor-azul .fluxo-agente-icone {
+  background: var(--cor-primaria-suave);
+  color: var(--cor-primaria);
+}
+
+.fluxo-cor-roxo .fluxo-agente-icone {
+  background: var(--cor-roxo-suave);
+  color: var(--cor-roxo);
+}
+
+.fluxo-cor-verde .fluxo-agente-icone {
+  background: var(--cor-verde-suave);
+  color: var(--cor-verde);
+}
+
+.fluxo-cor-laranja .fluxo-agente-icone {
+  background: var(--cor-laranja-suave);
+  color: var(--cor-laranja);
+}
+
+/* ===== Detalhe do nó ===== */
+.fluxo-detalhe-fixo {
+  position: static;
+  width: auto;
+  max-width: none;
+  max-height: none;
+  overflow: visible;
+}
+
+.fluxo-producao {
+  margin: 12px 0;
+  padding-top: 8px;
+  border-top: 1px solid var(--cor-borda);
+  font-size: 0.9rem;
+}
+
+.fluxo-producao p {
+  margin: 4px 0;
+}
+
+.fluxo-selos {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fluxo-agente-ativo {
+    animation: none;
+  }
+}

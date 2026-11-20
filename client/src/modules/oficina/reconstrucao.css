@@ -1,0 +1,466 @@
+/* ===== Reconstrução por partes (etapa 3) e resultado (etapa 4) ===== */
+
+/* Layout: lista à esquerda (300 px) e área de trabalho à direita; uma coluna abaixo de 900 px. */
+.rec-layout {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  min-width: 0;
+}
+
+.rec-layout > .cartao {
+  min-width: 0;
+}
+
+@media (max-width: 899px) {
+  .rec-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.rec-texto-pequeno {
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+  margin: 0.25rem 0;
+  overflow-wrap: anywhere;
+}
+
+.rec-suave {
+  color: var(--cor-texto-suave);
+}
+
+.rec-vazio {
+  padding: 1rem 0;
+  text-align: center;
+  color: var(--cor-texto-suave);
+}
+
+.rec-dica {
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+  margin: 0 0 0.5rem;
+}
+
+/* ----- Progresso ----- */
+.rec-progresso {
+  margin-bottom: 0.75rem;
+}
+
+.rec-progresso .rec-texto-pequeno {
+  margin: 0 0 0.4rem;
+  font-weight: 600;
+}
+
+.rec-progresso-barra {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--cor-superficie-2);
+  border: 1px solid var(--cor-borda);
+  overflow: hidden;
+}
+
+.rec-progresso-preenchido {
+  height: 100%;
+  background: var(--gradiente-primario);
+  transition: width 0.3s ease;
+}
+
+/* ----- Lista de partes ----- */
+.rec-lista-partes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.rec-item-parte {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  min-height: var(--altura-toque);
+  padding: 0.6rem 0.75rem;
+  text-align: left;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  cursor: pointer;
+}
+
+.rec-item-parte:hover {
+  border-color: var(--cor-primaria);
+}
+
+.rec-item-parte:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+.rec-item-selecionado {
+  background: var(--cor-primaria-suave);
+  border-color: var(--cor-primaria);
+}
+
+.rec-item-nome {
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.rec-selos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+/* ----- Área de trabalho da parte ----- */
+.rec-cabecalho-parte {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 560px) {
+  .rec-cabecalho-parte {
+    grid-template-columns: 220px minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+.rec-cabecalho-parte h2 {
+  margin-bottom: 0.25rem;
+}
+
+.rec-visualizador-pequeno {
+  max-width: 220px;
+  min-width: 0;
+}
+
+.rec-barra-gerar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.rec-acoes-opcao {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.rec-acoes-resultado {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.rec-rodape {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--cor-borda);
+}
+
+/* Faixa "Sua vez" acima da lista de opções: mesmo visual laranja da aprovação do mapa. */
+.rec-sua-vez {
+  display: grid;
+  gap: 0.2rem;
+  margin-top: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  border: 2px solid var(--cor-laranja);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-laranja-suave);
+  min-width: 0;
+}
+
+.rec-sua-vez strong {
+  color: var(--cor-aviso);
+  font-size: 0.95rem;
+}
+
+.rec-sua-vez span {
+  font-size: 0.88rem;
+  color: var(--cor-texto-suave);
+}
+
+/* ----- Grade de opções ----- */
+.rec-grade-opcoes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.rec-cartao-opcao {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 0;
+  padding: 0.75rem;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  box-shadow: var(--sombra);
+}
+
+.rec-cartao-escolhida {
+  border-color: var(--cor-sucesso);
+}
+
+.rec-rotulo-opcao {
+  overflow-wrap: anywhere;
+}
+
+.rec-parecer {
+  margin: 0;
+}
+
+.rec-carregando-opcao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 140px;
+  border-radius: var(--raio-pequeno);
+  color: var(--cor-texto-suave);
+  font-weight: 600;
+  background: linear-gradient(
+    90deg,
+    var(--cor-superficie-2),
+    var(--cor-primaria-suave),
+    var(--cor-superficie-2)
+  );
+  background-size: 200% 100%;
+  animation: rec-brilho 1.4s linear infinite;
+}
+
+@keyframes rec-brilho {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* ----- Comparador antes/depois ----- */
+.rec-comparador {
+  max-width: 100%;
+  min-width: 0;
+}
+
+.rec-comparador-imagem {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-superficie-2);
+  border: 1px solid var(--cor-borda);
+}
+
+.rec-comparador-camada {
+  position: absolute;
+  inset: 0;
+}
+
+.rec-comparador-camada > * {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.rec-comparador-camada > img {
+  object-fit: contain;
+}
+
+.rec-etiqueta {
+  position: absolute;
+  top: 0.4rem;
+  z-index: 1;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.rec-etiqueta-antes {
+  left: 0.4rem;
+}
+
+.rec-etiqueta-depois {
+  right: 0.4rem;
+}
+
+.rec-comparador-controle {
+  display: block;
+  width: 100%;
+  margin-top: 0.5rem;
+  accent-color: var(--cor-primaria);
+}
+
+/* ----- Resultado ----- */
+.rec-resultado {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.rec-lista-versoes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.rec-versao {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.rec-versao:last-child {
+  border-bottom: none;
+}
+
+.rec-versao-miniatura {
+  width: 96px;
+  height: auto;
+  border-radius: var(--raio-pequeno);
+  border: 1px solid var(--cor-borda);
+  background: var(--cor-superficie-2);
+}
+
+.rec-versao-texto {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.rec-versao-texto p {
+  margin: 0;
+}
+
+/* ----- Laudo de restauração ----- */
+.rec-laudo {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+  min-width: 0;
+  padding: 1rem;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+}
+
+.rec-laudo h3 {
+  margin: 0 0 0.4rem;
+}
+
+.rec-laudo p {
+  margin: 0.25rem 0;
+  overflow-wrap: anywhere;
+}
+
+.rec-laudo ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.rec-laudo-tabela-area {
+  overflow-x: auto;
+  min-width: 0;
+}
+
+.rec-laudo-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.rec-laudo-tabela th,
+.rec-laudo-tabela td {
+  padding: 0.4rem 0.5rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.rec-laudo-tabela thead th {
+  color: var(--cor-texto-suave);
+  font-weight: 600;
+}
+
+@media print {
+  body.imprimindo-laudo * {
+    visibility: hidden;
+  }
+
+  body.imprimindo-laudo .rec-laudo,
+  body.imprimindo-laudo .rec-laudo * {
+    visibility: visible;
+  }
+
+  body.imprimindo-laudo .rec-laudo {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+}
+
+/* ----- Grade de reconstrução (cartão no topo da etapa) ----- */
+
+/* A grade ocupa a largura toda, acima da lista e do painel da parte. */
+.rec-layout > .rec-grade-card {
+  grid-column: 1 / -1;
+  min-width: 0;
+}
+
+.rec-painel-parte {
+  min-width: 0;
+}
+
+.rec-grade-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+/* Grupos da lista de partes (por categoria). */
+.rec-grupo-partes {
+  margin-top: 0.75rem;
+}
+
+.rec-grupo-partes:first-of-type {
+  margin-top: 0;
+}
+
+.rec-grupo-titulo {
+  margin: 0 0 0.4rem;
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+  font-weight: 700;
+}

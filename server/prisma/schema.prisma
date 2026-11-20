@@ -1,0 +1,231 @@
+// Modelo de dados do Restaura (fonte da verdade).
+// Campos de texto com valores fixos estão documentados em docs/CONTRATOS.md.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Perfil {
+  ADMIN
+  USUARIO
+}
+
+model Usuario {
+  id        Int           @id @default(autoincrement())
+  nome      String
+  email     String        @unique
+  senhaHash String
+  perfil    Perfil        @default(USUARIO)
+  ativo     Boolean       @default(true)
+  criadoEm  DateTime      @default(now())
+  projetos  Projeto[]
+  canva     CanvaConexao?
+}
+
+// Uma imagem em reconstrução.
+model Projeto {
+  id              Int                @id @default(autoincrement())
+  usuarioId       Int
+  usuario         Usuario            @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  nome            String
+  descricao       String             @default("")
+  tipo            String             @default("OUTRO") // FOTO | LOGO | DOCUMENTO | PRODUTO | PAISAGEM | OUTRO
+  status          String             @default("NOVO") // NOVO | ANALISADO | EM_RECONSTRUCAO | CONCLUIDO
+  originalArquivo String
+  atualArquivo    String
+  largura         Int
+  altura          Int
+  analise         Json?
+  mapaStatus      String             @default("RASCUNHO") // RASCUNHO | AGUARDANDO | APROVADO (mapa de referências)
+  mapaAprovadoEm  DateTime?
+  cena            Json? // mapa 3D da foto (CENA): CenaGravada (ver docs/CENA.md), null = sem cena
+  gradeLinhas     Int                @default(0) // grade de reconstrução: 0 = ainda não montada
+  gradeColunas    Int                @default(0)
+  criadoEm        DateTime           @default(now())
+  atualizadoEm    DateTime           @updatedAt
+  regioes         Regiao[]
+  referencias     Referencia[]
+  pedidos         PedidoReferencia[]
+  opcoes          Opcao[]
+  versoes         Versao[]
+  trabalhos       Trabalho[]
+  eventos         Evento[]
+}
+
+// Parte da imagem com um problema. x, y, largura e altura são frações (0 a 1) da imagem.
+model Regiao {
+  id        Int                @id @default(autoincrement())
+  projetoId Int
+  projeto   Projeto            @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  nome      String
+  x         Float
+  y         Float
+  largura   Float
+  altura    Float
+  problema  String // FALTANDO | DANIFICADO | BORRADO | RUIDO | DESBOTADO | BAIXA_RESOLUCAO | EXPOSICAO | OUTRO | NENHUM
+  gravidade Int                @default(3) // 1 a 5
+  descricao String             @default("")
+  origem    String             @default("MANUAL") // LOCAL | IA | MANUAL
+  status    String             @default("PENDENTE") // PENDENTE | EM_ANDAMENTO | RESOLVIDA | IGNORADA
+  ordem     Int                @default(0)
+  profundidade Float?         // distância da parte em metros (mapa 3D); null = desconhecida
+  plano    String             @default("") // plano de tratamento da parte, escrito pelo conservador
+  classe    String             @default("DEFEITO") // DEFEITO (parte marcada à mão ou imagem inteira) | ELEMENTO (rosto, roupa, objeto...) | CELULA (célula da grade)
+  categoria String             @default("OUTRO") // ROSTO | CORPO | ROUPA | OBJETO | TEXTO | FUNDO | COR | OUTRO
+  selecionada Boolean          @default(true) // o usuário quer reconstruir esta parte
+  linha     Int? // só para CELULA: posição na grade, começando em 0
+  coluna    Int?
+  opcoes    Opcao[]
+  vinculos  Vinculo[]
+  pedidos   PedidoReferencia[]
+}
+
+// Imagem de referência enviada pelo usuário.
+model Referencia {
+  id           Int       @id @default(autoincrement())
+  projetoId    Int
+  projeto      Projeto   @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  nome         String
+  arquivo      String
+  largura      Int
+  altura       Int
+  papel        String    @default("GERAL") // ROSTO | OBJETO | ESTILO | COR | TEXTO | CENARIO | GERAL
+  observacao   String    @default("")
+  canvaMediaId String?
+  origem       String    @default("USUARIO") // USUARIO (importada) | CANVA (gerada para uma parte)
+  regiaoId     Int? // parte para a qual foi importada ou gerada (sem relação: a parte pode ser apagada)
+  status       String    @default("APROVADA") // GERANDO | PENDENTE (espera o revisor) | APROVADA | REPROVADA | FALHOU
+  nota         Int? // 0 a 10, dada pelo revisor às geradas
+  parecer      String    @default("")
+  prompt       String    @default("")
+  erro         String?
+  criadoEm     DateTime  @default(now())
+  vinculos     Vinculo[]
+}
+
+// Mapa de referências: qual referência serve a qual região.
+model Vinculo {
+  id           Int        @id @default(autoincrement())
+  referenciaId Int
+  referencia   Referencia @relation(fields: [referenciaId], references: [id], onDelete: Cascade)
+  regiaoId     Int
+  regiao       Regiao     @relation(fields: [regiaoId], references: [id], onDelete: Cascade)
+  peso         Int        @default(2) // 1 a 3
+
+  @@unique([referenciaId, regiaoId])
+}
+
+// Referência que o sistema pede ao usuário.
+model PedidoReferencia {
+  id           Int      @id @default(autoincrement())
+  projetoId    Int
+  projeto      Projeto  @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  regiaoId     Int?
+  regiao       Regiao?  @relation(fields: [regiaoId], references: [id], onDelete: SetNull)
+  descricao    String
+  papel        String   @default("GERAL")
+  atendido     Boolean  @default(false)
+  referenciaId Int?
+  criadoEm     DateTime @default(now())
+}
+
+// Uma opção de correção de uma região. O arquivo é o recorte de contexto já corrigido.
+model Opcao {
+  id         Int       @id @default(autoincrement())
+  projetoId  Int
+  projeto    Projeto   @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  regiaoId   Int
+  regiao     Regiao    @relation(fields: [regiaoId], references: [id], onDelete: Cascade)
+  origem     String // LOCAL | CANVA
+  rotulo     String
+  parametros Json // { contexto: {x,y,largura,altura} em pixels, ... }
+  arquivo    String?
+  status     String    @default("GERANDO") // GERANDO | PRONTA | FALHOU | ESCOLHIDA | REPROVADA
+  erro       String?
+  rodada     Int       @default(1)
+  nota       Int? // 0 a 10, dada pelo revisor
+  parecer    String?
+  criadoEm   DateTime  @default(now())
+  revisoes   Revisao[]
+}
+
+// Veredito do agente revisor sobre uma opção.
+model Revisao {
+  id          Int      @id @default(autoincrement())
+  opcaoId     Int
+  opcao       Opcao    @relation(fields: [opcaoId], references: [id], onDelete: Cascade)
+  veredito    String // APROVADA | REPROVADA
+  nota        Int
+  parecer     String
+  planoAjuste String   @default("")
+  criadoEm    DateTime @default(now())
+}
+
+// Histórico da imagem do projeto (para desfazer).
+model Versao {
+  id        Int      @id @default(autoincrement())
+  projetoId Int
+  projeto   Projeto  @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  numero    Int
+  arquivo   String
+  descricao String
+  criadoEm  DateTime @default(now())
+}
+
+// Fila de trabalhos para a equipe de agentes (sessão do Claude Code ligada por MCP).
+model Trabalho {
+  id          Int       @id @default(autoincrement())
+  projetoId   Int
+  projeto     Projeto   @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  tipo        String // ANALISE | REFERENCIAS | PLANO | REGIAO | INSPECAO | CENA
+  regiaoId    Int?
+  instrucoes  String    @default("")
+  status      String    @default("FILA") // FILA | EM_ANDAMENTO | CONCLUIDO | FALHOU | CANCELADO
+  resumo      String    @default("")
+  criadoEm    DateTime  @default(now())
+  iniciadoEm  DateTime?
+  concluidoEm DateTime?
+  eventos     Evento[]
+}
+
+// Linha do tempo do que os agentes fizeram.
+model Evento {
+  id         Int       @id @default(autoincrement())
+  projetoId  Int
+  projeto    Projeto   @relation(fields: [projetoId], references: [id], onDelete: Cascade)
+  trabalhoId Int?
+  trabalho   Trabalho? @relation(fields: [trabalhoId], references: [id], onDelete: SetNull)
+  agente     String // maestro | analista | cartografo | conservador | restaurador | gerador-canva | revisor | inspetor | cenografo | sistema
+  tipo       String // status | acao | nota | revisao | erro
+  texto      String
+  criadoEm   DateTime  @default(now())
+}
+
+// Conexão do usuário com o Canva (conector MCP do Canva). Tokens cifrados com lib/cripto.
+model CanvaConexao {
+  id             Int      @id @default(autoincrement())
+  usuarioId      Int      @unique
+  usuario        Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  clientId       String
+  redirectUri    String
+  tokenAcesso    String
+  tokenRenovacao String?
+  expiraEm       DateTime
+  criadoEm       DateTime @default(now())
+  atualizadoEm   DateTime @updatedAt
+}
+
+// Estado temporário do login OAuth do Canva (PKCE).
+model CanvaEstado {
+  state       String   @id
+  usuarioId   Int
+  verificador String
+  clientId    String
+  redirectUri String
+  criadoEm    DateTime @default(now())
+}

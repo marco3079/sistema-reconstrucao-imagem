@@ -1,0 +1,371 @@
+/* ===== Quadro de nós (QuadroFluxo) ===== */
+
+.quadro {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  touch-action: none;
+  cursor: grab;
+  user-select: none;
+  background-color: var(--cor-fundo);
+  background-image: radial-gradient(circle, var(--cor-borda) 1.2px, transparent 1.4px);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+.quadro.quadro-arrastando {
+  cursor: grabbing;
+}
+
+.quadro-mundo {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+}
+
+/* ===== Ligações (SVG) ===== */
+.quadro-ligacoes {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  /* O estilo global limita svg a 100% do pai, e o pai tem largura 0: sem isto nada é desenhado. */
+  max-width: none;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.quadro-ligacao {
+  fill: none;
+  stroke: var(--cor-texto-suave);
+  stroke-width: 2;
+  opacity: 0.45;
+}
+
+.quadro-ligacao-retorno {
+  stroke-dasharray: 5 6;
+}
+
+.quadro-ligacao-ativa {
+  stroke: var(--cor-primaria);
+  opacity: 1;
+  stroke-width: 2.5;
+  stroke-dasharray: 7 7;
+  animation: quadro-traco 0.7s linear infinite;
+}
+
+@keyframes quadro-traco {
+  from {
+    stroke-dashoffset: 14;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.quadro-seta-cinza path {
+  fill: var(--cor-texto-suave);
+}
+
+.quadro-seta-primaria path {
+  fill: var(--cor-primaria);
+}
+
+.quadro-bolinha-fluxo {
+  fill: var(--cor-primaria);
+}
+
+/* ===== Rótulo de ligação ===== */
+.quadro-rotulo {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: 999px;
+  color: var(--cor-texto-suave);
+  font-size: 0.68rem;
+  padding: 1px 8px;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.quadro-rotulo.quadro-rotulo-ativo {
+  border-color: var(--cor-primaria);
+  color: var(--cor-primaria);
+}
+
+/* ===== Nó ===== */
+.quadro-no {
+  position: absolute;
+  box-sizing: border-box;
+  width: 210px;
+  height: 104px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  border: 1.5px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  box-shadow: var(--sombra);
+  cursor: pointer;
+  user-select: none;
+}
+
+.quadro-no:focus-visible,
+.quadro-no.quadro-no-selecionado {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+.quadro-no-topo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.quadro-no-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+}
+
+.quadro-no-titulos {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+}
+
+.quadro-no-titulo {
+  display: block;
+  font-weight: 700;
+  font-size: 0.84rem;
+  line-height: 1.25;
+  padding-right: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quadro-no-subtitulo {
+  display: block;
+  font-size: 0.74rem;
+  color: var(--cor-texto-suave);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quadro-no-estado {
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 1px 8px;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--cor-texto-suave);
+  white-space: nowrap;
+}
+
+.quadro-bolinha-estado {
+  display: inline-block;
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cor-texto-suave);
+}
+
+.quadro-no-espera .quadro-bolinha-estado {
+  background: var(--cor-laranja);
+}
+
+.quadro-no-ativo .quadro-bolinha-estado {
+  background: var(--cor-primaria);
+  animation: quadro-pulso-bolinha 1.6s infinite;
+}
+
+.quadro-no-feito .quadro-bolinha-estado {
+  background: var(--cor-verde);
+}
+
+.quadro-no-erro .quadro-bolinha-estado {
+  background: var(--cor-perigo);
+}
+
+@keyframes quadro-pulso-bolinha {
+  0% {
+    box-shadow: 0 0 0 0 var(--cor-primaria);
+  }
+  100% {
+    box-shadow: 0 0 0 6px transparent;
+  }
+}
+
+.quadro-no-texto {
+  margin: 0;
+  font-size: 0.76rem;
+  line-height: 1.35;
+  color: var(--cor-texto-suave);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+/* Cores do nó (ícone) */
+.quadro-cor-azul .quadro-no-icone {
+  background: var(--cor-primaria-suave);
+  color: var(--cor-primaria);
+}
+
+.quadro-cor-roxo .quadro-no-icone {
+  background: var(--cor-roxo-suave);
+  color: var(--cor-roxo);
+}
+
+.quadro-cor-verde .quadro-no-icone {
+  background: var(--cor-verde-suave);
+  color: var(--cor-verde);
+}
+
+.quadro-cor-laranja .quadro-no-icone {
+  background: var(--cor-laranja-suave);
+  color: var(--cor-laranja);
+}
+
+.quadro-cor-cinza .quadro-no-icone {
+  background: var(--cor-fundo);
+  color: var(--cor-texto-suave);
+}
+
+/* Contador */
+.quadro-contador {
+  position: absolute;
+  top: -9px;
+  left: -9px;
+  box-sizing: border-box;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--cor-primaria);
+  color: var(--cor-sobre-primaria);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+/* Portas de ligação */
+.quadro-porta {
+  position: absolute;
+  top: 50%;
+  box-sizing: border-box;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: var(--cor-superficie);
+  border: 2px solid var(--cor-texto-suave);
+}
+
+.quadro-porta-entrada {
+  left: -6px;
+}
+
+.quadro-porta-saida {
+  right: -6px;
+}
+
+/* Estados do nó */
+.quadro-no-ativo {
+  border-color: var(--cor-primaria);
+  animation: quadro-brilho 1.6s infinite;
+}
+
+@keyframes quadro-brilho {
+  0% {
+    box-shadow: var(--sombra), 0 0 0 0 var(--cor-primaria);
+  }
+  100% {
+    box-shadow: var(--sombra), 0 0 0 8px transparent;
+  }
+}
+
+.quadro-no-feito {
+  border-color: var(--cor-verde);
+}
+
+.quadro-no-erro {
+  border-color: var(--cor-perigo);
+}
+
+.quadro-no-espera {
+  border-style: dashed;
+  border-color: var(--cor-laranja);
+}
+
+.quadro-no-parado {
+  opacity: 0.82;
+}
+
+/* ===== Controles ===== */
+.quadro-controles {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  z-index: 2;
+  display: flex;
+  gap: 6px;
+}
+
+.quadro-controles button {
+  min-width: 36px;
+  min-height: 36px;
+  padding: 0 10px;
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.quadro-controles button:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+/* ===== Movimento reduzido ===== */
+@media (prefers-reduced-motion: reduce) {
+  .quadro-no-ativo,
+  .quadro-no-ativo .quadro-bolinha-estado,
+  .quadro-ligacao-ativa {
+    animation: none;
+  }
+
+  .quadro-bolinha-fluxo {
+    display: none;
+  }
+}

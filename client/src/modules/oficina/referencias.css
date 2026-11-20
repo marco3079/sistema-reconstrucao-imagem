@@ -1,0 +1,747 @@
+/* Etapa 2 da oficina: referências pedidas, envio, cartões e mapa. Só variáveis de ui/estilo.css. */
+
+.ref-etapa {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.ref-vazio {
+  margin: 0;
+  padding: 0.75rem 0;
+  color: var(--cor-texto-suave);
+}
+
+.ref-ajuda {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+}
+
+.ref-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cor-primaria);
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.ref-link:focus-visible,
+.ref-zona:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+/* ===== Bloco 1: referências pedidas ===== */
+.ref-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.ref-pedido {
+  display: grid;
+  gap: 0.6rem;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-superficie-2);
+  min-width: 0;
+}
+
+.ref-pedido-cabecalho {
+  display: flex;
+  gap: 0.7rem;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.ref-pedido-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: var(--cor-primaria-suave);
+  color: var(--cor-primaria);
+}
+
+.ref-pedido-texto {
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.ref-pedido-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+}
+
+.ref-pedido-atendido {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+  font-size: 0.9rem;
+}
+
+.ref-pedido-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem 0.75rem;
+}
+
+.ref-pedido-acoes .campo {
+  margin-bottom: 0;
+  flex: 1 1 220px;
+  max-width: 100%;
+}
+
+.ref-miniatura-pequena {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid var(--cor-borda);
+}
+
+/* ===== Bloco 2: suas referências ===== */
+.ref-colar {
+  display: grid;
+  gap: 0.6rem;
+  min-width: 0;
+  border-radius: var(--raio);
+}
+
+.ref-colar:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 4px;
+}
+
+.ref-envio-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.ref-zona-area {
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
+.ref-envio-papel {
+  flex: 0 1 240px;
+  min-width: 0;
+}
+
+.ref-envio-papel .campo {
+  margin-bottom: 0;
+}
+
+.ref-zona {
+  width: 100%;
+  height: 100%;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 1rem;
+  border: 2px dashed var(--cor-borda);
+  border-radius: var(--raio);
+  background: var(--cor-superficie-2);
+  color: var(--cor-texto-suave);
+  text-align: center;
+  cursor: pointer;
+}
+
+.ref-zona-arrastando {
+  border-color: var(--cor-primaria);
+  background: var(--cor-primaria-suave);
+  color: var(--cor-primaria);
+}
+
+.ref-zona-titulo {
+  font-weight: 700;
+  color: var(--cor-texto);
+}
+
+.ref-zona-arrastando .ref-zona-titulo {
+  color: var(--cor-primaria);
+}
+
+.ref-progresso {
+  margin: 0;
+  font-weight: 600;
+  color: var(--cor-primaria);
+}
+
+.ref-erros {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.ref-grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.ref-cartao {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-superficie);
+  box-shadow: var(--sombra);
+}
+
+.ref-cartao-miniatura {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: var(--cor-superficie-2);
+  cursor: pointer;
+}
+
+.ref-cartao-miniatura img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.ref-cartao-corpo {
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.6rem 0.7rem;
+  min-width: 0;
+}
+
+.ref-cartao-nome {
+  overflow-wrap: anywhere;
+}
+
+.ref-cartao-meta {
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+}
+
+/* Modal de edição */
+.ref-imagem-grande {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto 1rem;
+  border-radius: var(--raio-pequeno);
+  border: 1px solid var(--cor-borda);
+}
+
+.ref-modal-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.ref-rodape {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+/* ===== Mapa por parte (MapaElementos): lista de partes à esquerda, detalhe à direita ===== */
+.ref-el-tela {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.ref-el-estado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+}
+
+.ref-el-estado .ref-ajuda {
+  flex-basis: 100%;
+}
+
+.ref-el-quadro {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  min-width: 0;
+}
+
+@media (min-width: 1000px) {
+  .ref-el-quadro {
+    grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+  }
+}
+
+.ref-el-partes {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  min-width: 0;
+}
+
+/* Em telas largas a lista de partes rola por dentro, para o painel da parte selecionada ficar ao lado. */
+@media (min-width: 1000px) {
+  .ref-el-partes {
+    max-height: 78vh;
+    overflow-y: auto;
+    padding-right: 0.35rem;
+  }
+}
+
+.ref-el-grupo {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.ref-el-grupo-titulo {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--cor-texto-suave);
+}
+
+.ref-el-parte {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  min-width: 0;
+  padding: 0.5rem 0.6rem;
+  font: inherit;
+  text-align: left;
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  cursor: pointer;
+}
+
+.ref-el-parte:hover {
+  border-color: var(--cor-primaria);
+}
+
+.ref-el-parte:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+.ref-el-parte-ativa {
+  background: var(--cor-primaria-suave);
+  border-color: var(--cor-primaria);
+}
+
+.ref-el-parte-texto {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.ref-el-miniatura {
+  display: block;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 8px;
+  border: 1px solid var(--cor-borda);
+  background-color: var(--cor-superficie-2);
+  background-repeat: no-repeat;
+}
+
+.ref-el-meta {
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+}
+
+/* Geração em lote no topo da lista de partes. */
+.ref-el-gerar {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-superficie);
+  min-width: 0;
+}
+
+.ref-el-gerar-linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+}
+
+.ref-el-gerar-linha .ref-ajuda {
+  margin: 0;
+}
+
+.ref-el-selos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.5rem;
+}
+
+/* Painel da parte selecionada */
+.ref-el-detalhe {
+  display: grid;
+  gap: 1rem;
+  align-content: start;
+  min-width: 0;
+  padding: 1rem;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+}
+
+.ref-el-detalhe:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+.ref-el-cabecalho {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.ref-el-cabecalho h3 {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.ref-el-bloco {
+  display: grid;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.ref-el-bloco h4 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.ref-el-bloco-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.ref-el-subtitulo {
+  margin: 0.4rem 0 0;
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+}
+
+.ref-el-chip {
+  min-height: 28px;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.8rem;
+  color: var(--cor-texto);
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.ref-el-chip:focus-visible,
+.ref-el-zona:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+.ref-el-chip[aria-pressed='true'] {
+  color: var(--cor-primaria);
+  background: var(--cor-primaria-suave);
+  border-color: var(--cor-primaria);
+  font-weight: 700;
+}
+
+.ref-el-chip:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.ref-el-recorte {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: var(--raio-pequeno);
+  border: 1px solid var(--cor-borda);
+  background-color: var(--cor-superficie-2);
+  background-repeat: no-repeat;
+}
+
+.ref-aviso-palpite {
+  margin: 0;
+  padding: 0.5rem 0.7rem;
+  font-size: 0.85rem;
+  color: var(--cor-texto);
+  background: var(--cor-laranja-suave);
+  border-radius: var(--raio-pequeno);
+}
+
+.ref-el-zona {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.8rem;
+  padding: 0.8rem;
+  border: 2px dashed var(--cor-borda);
+  border-radius: var(--raio);
+  background: var(--cor-superficie-2);
+}
+
+.ref-el-zona-arrastando {
+  border-color: var(--cor-primaria);
+  background: var(--cor-primaria-suave);
+}
+
+.ref-el-erros {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.ref-el-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.ref-el-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.7rem;
+  padding: 0.5rem 0.6rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-superficie-2);
+}
+
+.ref-el-item-nome {
+  flex: 1 1 140px;
+  min-width: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.ref-el-item-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ref-el-thumb {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--cor-borda);
+}
+
+.ref-el-forca {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+/* Opções do Canva */
+.ref-el-opcoes {
+  display: grid;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.ref-el-opcao {
+  padding: 0.7rem;
+  min-width: 0;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+}
+
+.ref-el-opcao-linha {
+  display: grid;
+  grid-template-columns: minmax(0, 120px) minmax(0, 1fr);
+  gap: 0.7rem;
+  align-items: start;
+  min-width: 0;
+}
+
+.ref-el-opcao-original {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--cor-borda);
+  background-color: var(--cor-superficie-2);
+  background-repeat: no-repeat;
+}
+
+.ref-el-opcao-corpo {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+  justify-items: start;
+}
+
+.ref-el-opcao-corpo > * {
+  max-width: 100%;
+}
+
+.ref-el-opcao-imagem {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--cor-borda);
+}
+
+.ref-el-opcao-esmaecida {
+  opacity: 0.4;
+  filter: grayscale(1);
+}
+
+.ref-el-esqueleto {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  background: linear-gradient(90deg, var(--cor-superficie-2) 25%, var(--cor-borda) 50%, var(--cor-superficie-2) 75%);
+  background-size: 200% 100%;
+  animation: ref-el-brilho 1.4s ease-in-out infinite;
+}
+
+.ref-el-sem-imagem {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  border: 1px dashed var(--cor-borda);
+  background: var(--cor-superficie-2);
+}
+
+.ref-el-status {
+  margin: 0;
+  font-weight: 600;
+  color: var(--cor-primaria);
+}
+
+.ref-el-erro {
+  margin: 0;
+  color: var(--cor-perigo);
+  overflow-wrap: anywhere;
+}
+
+@keyframes ref-el-brilho {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ref-el-esqueleto {
+    animation: none;
+  }
+}
+
+/* Partes a reconstruir e aprovação */
+.ref-el-grade-bloco {
+  display: grid;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.ref-el-grade-bloco h3 {
+  margin: 0;
+}
+
+.ref-el-aprovacao {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: var(--raio);
+  border: 2px solid var(--cor-borda);
+  background: var(--cor-superficie);
+  min-width: 0;
+}
+
+.ref-el-aprovacao-pendente {
+  border-color: var(--cor-laranja);
+  background: var(--cor-laranja-suave);
+}
+
+.ref-el-aprovacao-ok {
+  border-color: var(--cor-verde);
+  background: var(--cor-verde-suave);
+}
+
+.ref-el-aprovacao-texto {
+  display: grid;
+  gap: 0.25rem;
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.ref-el-aprovacao-texto strong {
+  font-size: 1rem;
+}
+
+.ref-el-aprovacao-texto .ref-ajuda {
+  margin: 0;
+}
+
+.ref-el-aprovacao-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ref-el-aprovacao .aviso {
+  flex-basis: 100%;
+}

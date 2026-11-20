@@ -1,0 +1,208 @@
+/* ===== Início: indicadores, colunas e cartões de imagens recentes ===== */
+
+.inicio-indicadores {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.inicio-indicador {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  padding: 0.9rem 1rem;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  min-width: 0;
+}
+
+.inicio-indicador-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--cor-primaria-suave);
+  color: var(--cor-primaria);
+}
+
+.inicio-indicador-valor {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--cor-texto);
+}
+
+.inicio-indicador-rotulo {
+  font-size: 0.82rem;
+  color: var(--cor-texto-suave);
+}
+
+@media (max-width: 559px) {
+  .inicio-indicadores {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+}
+
+.inicio-colunas {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.inicio-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-width: 0;
+}
+
+@media (min-width: 900px) {
+  .inicio-colunas {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  }
+}
+
+.inicio-projetos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.75rem;
+}
+
+.inicio-projeto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 0.5rem;
+  background: var(--cor-superficie-2);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  color: var(--cor-texto);
+  text-decoration: none;
+  min-width: 0;
+}
+
+.inicio-projeto:hover {
+  border-color: var(--cor-primaria);
+}
+
+.inicio-projeto-miniatura {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--cor-superficie);
+}
+
+.inicio-projeto-nome {
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.inicio-projeto-progresso {
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+}
+
+.inicio-vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.inicio-vazio p {
+  margin: 0;
+  color: var(--cor-texto-suave);
+}
+
+.inicio-lista {
+  list-style: none;
+  margin: 0.75rem 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.inicio-link {
+  color: var(--cor-primaria);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.inicio-link:hover {
+  text-decoration: underline;
+}
+
+/* ===== Esperando você (topo do Início) ===== */
+
+.inicio-espera {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem;
+  background: var(--cor-laranja-suave);
+  border: 2px solid var(--cor-laranja);
+  border-radius: var(--raio);
+}
+
+.inicio-espera-titulo {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--cor-texto);
+}
+
+.inicio-espera-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.inicio-espera-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+  padding: 0.6rem 0.75rem;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+}
+
+.inicio-espera-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.inicio-espera-nome {
+  font-weight: 700;
+  color: var(--cor-texto);
+  overflow-wrap: anywhere;
+}
+
+.inicio-espera-passo {
+  font-size: 0.82rem;
+  color: var(--cor-texto-suave);
+  overflow-wrap: anywhere;
+}
+
+.inicio-espera-discreto {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+}

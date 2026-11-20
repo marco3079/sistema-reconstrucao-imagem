@@ -1,0 +1,288 @@
+/* ===== Imagens: grade de cartões ===== */
+
+.projetos-grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.projetos-cartao {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.6rem;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  color: var(--cor-texto);
+  text-decoration: none;
+  min-width: 0;
+}
+
+.projetos-cartao:hover {
+  border-color: var(--cor-primaria);
+}
+
+.projetos-cartao-aprovacao {
+  border: 2px solid var(--cor-laranja);
+  padding: calc(0.6rem - 1px);
+}
+
+/* Área clicável do cartão: abre a imagem. */
+.projetos-cartao-abrir {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  color: var(--cor-texto);
+  text-decoration: none;
+  min-width: 0;
+  border-radius: var(--raio-pequeno);
+}
+
+.projetos-cartao-abrir:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+.projetos-acao {
+  align-self: flex-start;
+}
+
+/* Filtro: Todas / Esperando você */
+.projetos-filtros-fila {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.projetos-filtro {
+  font: inherit;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 999px;
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  cursor: pointer;
+}
+
+.projetos-filtro:hover {
+  border-color: var(--cor-primaria);
+}
+
+.projetos-filtro[aria-pressed='true'] {
+  background: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+  color: var(--cor-superficie);
+  font-weight: 700;
+}
+
+.projetos-filtro:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+/* Selo de situação: quem é a vez e em que passo está */
+.projetos-situacao {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.projetos-vez {
+  align-self: flex-start;
+  padding: 0.15rem 0.6rem;
+  border: 1px solid;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.projetos-vez-aprovacao {
+  background: var(--cor-laranja-suave);
+  border-color: var(--cor-laranja);
+  color: var(--cor-texto);
+  font-weight: 800;
+}
+
+.projetos-vez-voce {
+  background: var(--cor-primaria-suave);
+  border-color: var(--cor-primaria);
+  color: var(--cor-primaria);
+}
+
+.projetos-vez-equipe {
+  background: var(--cor-fundo);
+  border-color: var(--cor-borda);
+  color: var(--cor-texto-suave);
+}
+
+.projetos-vez-parada {
+  background: var(--cor-superficie);
+  border-color: var(--cor-perigo);
+  color: var(--cor-perigo);
+}
+
+.projetos-vez-concluido {
+  background: var(--cor-verde-suave);
+  border-color: var(--cor-verde);
+  color: var(--cor-texto);
+}
+
+.projetos-passo {
+  font-size: 0.82rem;
+  color: var(--cor-texto-suave);
+  overflow-wrap: anywhere;
+}
+
+.projetos-passo-barra {
+  height: 3px;
+  border-radius: 999px;
+  background: var(--cor-superficie-2);
+  overflow: hidden;
+}
+
+.projetos-passo-barra span {
+  display: block;
+  height: 100%;
+  background: var(--cor-primaria);
+  border-radius: 999px;
+}
+
+.projetos-miniatura {
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-superficie-2);
+}
+
+.projetos-miniatura img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.projetos-nome {
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.projetos-selos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.projetos-barra {
+  height: 4px;
+  border-radius: 999px;
+  background: var(--cor-superficie-2);
+  overflow: hidden;
+}
+
+.projetos-barra span {
+  display: block;
+  height: 100%;
+  background: var(--cor-primaria);
+  border-radius: 999px;
+}
+
+.projetos-progresso {
+  font-size: 0.82rem;
+  color: var(--cor-texto-suave);
+}
+
+.projetos-data {
+  font-size: 0.78rem;
+  color: var(--cor-texto-suave);
+}
+
+.projetos-semresultado,
+.projetos-vazio p {
+  margin: 0;
+  color: var(--cor-texto-suave);
+}
+
+.projetos-vazio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2.5rem 1rem;
+  text-align: center;
+  background: var(--cor-superficie);
+  border: 1px dashed var(--cor-borda);
+  border-radius: var(--raio);
+  color: var(--cor-primaria);
+}
+
+.projetos-vazio p strong {
+  color: var(--cor-texto);
+}
+
+/* ===== Nova imagem (modal) ===== */
+
+.novo-soltar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 100%;
+  min-height: 160px;
+  padding: 1rem;
+  border: 2px dashed var(--cor-borda);
+  border-radius: var(--raio);
+  background: var(--cor-superficie-2);
+  color: var(--cor-texto);
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+}
+
+.novo-soltar:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+.novo-soltar-ativo {
+  border-color: var(--cor-primaria);
+  background: var(--cor-primaria-suave);
+}
+
+.novo-soltar-titulo {
+  font-weight: 700;
+}
+
+.novo-dica {
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+}
+
+.novo-previa {
+  display: block;
+  max-width: 100%;
+  max-height: 240px;
+  object-fit: contain;
+  border-radius: var(--raio-pequeno);
+}
+
+.novo-arquivo {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.novo-campos {
+  margin-top: 1rem;
+}
+
+.novo-ajuda {
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+}

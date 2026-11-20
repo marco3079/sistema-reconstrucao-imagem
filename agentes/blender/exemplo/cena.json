@@ -1,0 +1,52 @@
+{
+  "versao": 1,
+  "largura": 1600,
+  "altura": 1200,
+  "camera": {
+    "fovVertical": 50,
+    "foco": 1.0723,
+    "inclinacao": 0,
+    "rolagem": 0,
+    "altura": 1.5,
+    "horizonteY": 0.5,
+    "origemFoco": "ESTIMADO"
+  },
+  "pontosDeFuga": [],
+  "volumes": [
+    {
+      "nome": "Parede ao fundo",
+      "regiaoId": null,
+      "tipo": "PAREDE",
+      "caixa": { "x": 0.299, "y": 0.3526, "largura": 0.4021, "altura": 0.3485 },
+      "centro": { "x": 0, "y": 8, "z": 1.3 },
+      "tamanho": { "x": 4, "y": 0.12, "z": 2.6 },
+      "distancia": 8.0025,
+      "metodo": "TAMANHO",
+      "camada": 0
+    },
+    {
+      "nome": "Pessoa",
+      "regiaoId": 1,
+      "tipo": "PESSOA",
+      "caixa": { "x": 0.4497, "y": 0.4464, "largura": 0.1005, "altura": 0.4557 },
+      "centro": { "x": 0, "y": 4, "z": 0.85 },
+      "tamanho": { "x": 0.5, "y": 0.35, "z": 1.7 },
+      "distancia": 4.0525,
+      "metodo": "CHAO",
+      "camada": 1
+    },
+    {
+      "nome": "Objeto suspenso",
+      "regiaoId": null,
+      "tipo": "OBJETO",
+      "caixa": { "x": 0.6608, "y": 0.5357, "largura": 0.1072, "altura": 0.143 },
+      "centro": { "x": 0.8, "y": 3, "z": 1.2 },
+      "tamanho": { "x": 0.4, "y": 0.3, "z": 0.4 },
+      "distancia": 3.1193,
+      "metodo": "TAMANHO",
+      "camada": 2
+    }
+  ],
+  "limites": { "perto": 2.1835, "longe": 12.804 },
+  "avisos": []
+}

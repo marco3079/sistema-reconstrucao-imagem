@@ -1,0 +1,72 @@
+/* ===== Equipe de agentes ===== */
+
+.agentes-estado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 1rem;
+  margin-bottom: 0.6rem;
+  color: var(--cor-texto-suave);
+}
+
+.agentes-contagem {
+  list-style: none;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.5rem;
+}
+
+.agentes-grade {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 900px) {
+  .agentes-grade {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.agentes-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.1rem 1.25rem;
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  min-width: 0;
+}
+
+.agentes-card h3 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.agentes-card p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--cor-texto-suave);
+}
+
+.agentes-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--cor-primaria-suave);
+  color: var(--cor-primaria);
+}
+
+.agentes-passos {
+  margin: 0 0 0.75rem;
+  padding-left: 1.4rem;
+  display: grid;
+  gap: 0.45rem;
+}

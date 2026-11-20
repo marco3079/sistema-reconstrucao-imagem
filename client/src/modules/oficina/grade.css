@@ -1,0 +1,395 @@
+/* ===== Grade de reconstrução (GradeReconstrucao.tsx). Prefixo grade-. Só variáveis de tema. ===== */
+
+.grade-reconstrucao {
+  display: grid;
+  gap: 0.75rem;
+  min-width: 0;
+}
+
+.grade-texto {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--cor-texto);
+  font-weight: 600;
+}
+
+.grade-resumo {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.grade-agora {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--cor-texto-suave);
+  overflow-wrap: anywhere;
+}
+
+.grade-acoes-marcacao {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* Barra de progresso "N de M partes prontas". */
+.grade-progresso {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--cor-superficie-2);
+  border: 1px solid var(--cor-borda);
+  overflow: hidden;
+}
+
+.grade-progresso-preenchido {
+  height: 100%;
+  background: var(--gradiente-primario);
+  transition: width 0.4s ease;
+}
+
+/* Imagem inteira: botões acima da grade. */
+.grade-topo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Quadro: mantém a proporção da imagem; as camadas são absolutas por cima. */
+.grade-quadro {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  border-radius: var(--raio-pequeno);
+  border: 1px solid var(--cor-borda);
+  background: var(--cor-superficie-2);
+}
+
+.grade-imagem {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  user-select: none;
+}
+
+.grade-imagem-visivel {
+  opacity: 1;
+}
+
+.grade-camada {
+  position: absolute;
+  inset: 0;
+}
+
+/* ----- Retângulo de cada parte ----- */
+
+.grade-parte {
+  --espessura: 1px;
+  position: absolute;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font: inherit;
+  color: var(--cor-texto);
+  background: transparent;
+  border-style: solid;
+  border-width: var(--espessura);
+  border-color: transparent;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.grade-parte:disabled {
+  cursor: default;
+}
+
+.grade-parte:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+  z-index: 5;
+}
+
+.grade-aviso-conflito {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--cor-aviso);
+  font-weight: 600;
+}
+
+/* Elementos: cantos arredondados e contorno mais grosso que as células. */
+.grade-parte.grade-elemento {
+  border-radius: 10px;
+  border-width: calc(var(--espessura) + 1px);
+}
+
+/* Parte em foco (modo aoVivo): contorno duplo. */
+.grade-parte.grade-em-foco {
+  outline: 2px solid var(--cor-texto);
+  outline-offset: 2px;
+}
+
+/* fora: contorno fino tracejado, sem preenchimento. */
+.grade-parte-fora {
+  border-style: dashed;
+  border-color: var(--cor-texto-suave);
+  --espessura: 1px;
+}
+
+/* espera: contorno laranja com preenchimento bem leve. */
+.grade-parte-espera {
+  --espessura: 2px;
+  border-color: var(--cor-laranja);
+  background: color-mix(in srgb, var(--cor-laranja) 12%, transparent);
+}
+
+/* gerando: contorno primário com brilho que varre o retângulo. */
+.grade-parte-gerando {
+  --espessura: 2px;
+  border-color: var(--cor-primaria);
+  background: color-mix(in srgb, var(--cor-primaria) 8%, transparent);
+}
+
+/* revisao: contorno roxo, visto pulsando no centro. */
+.grade-parte-revisao {
+  --espessura: 2px;
+  border-color: var(--cor-roxo);
+  background: color-mix(in srgb, var(--cor-roxo) 10%, transparent);
+}
+
+/* escolha: contorno laranja grosso e etiqueta "Sua vez". */
+.grade-parte-escolha {
+  --espessura: 3px;
+  border-color: var(--cor-laranja);
+  background: color-mix(in srgb, var(--cor-laranja) 14%, transparent);
+}
+
+/* aplicada: contorno verde fino, sem preenchimento (a foto aparece), visto no canto. */
+.grade-parte-aplicada {
+  --espessura: 1px;
+  border-color: var(--cor-verde);
+  background: transparent;
+}
+
+/* marcada (modo selecao): preenchimento primário leve e caixa preenchida no canto. */
+.grade-parte-marcada {
+  --espessura: 2px;
+  border-color: var(--cor-primaria);
+  background: color-mix(in srgb, var(--cor-primaria) 16%, transparent);
+}
+
+/* Parte no topo, fora da grade (Imagem inteira). */
+.grade-inteira {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--altura-toque);
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--raio-pequeno);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.grade-inteira .grade-girador {
+  position: relative;
+  left: auto;
+  top: auto;
+  margin: 0 0 0 0.5rem;
+}
+
+.grade-inteira .grade-etiqueta {
+  position: static;
+  background: transparent;
+  padding: 0;
+}
+
+/* Etiqueta no canto superior esquerdo. */
+.grade-etiqueta {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  max-width: calc(100% - 4px);
+  padding: 0 0.3rem;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--cor-superficie) 90%, transparent);
+  color: var(--cor-texto);
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1.5;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.grade-etiqueta-texto {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.grade-parte-escolha .grade-etiqueta {
+  color: var(--cor-aviso);
+}
+
+/* Visto do canto (aplicada). */
+.grade-visto {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  display: grid;
+  place-items: center;
+  padding: 1px;
+  border-radius: 50%;
+  color: var(--cor-verde);
+  background: color-mix(in srgb, var(--cor-superficie) 85%, transparent);
+}
+
+/* Caixa de seleção preenchida no canto (modo selecao). */
+.grade-caixa {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 18px;
+  height: 18px;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  background: var(--cor-primaria);
+  color: var(--cor-sobre-primaria);
+}
+
+.grade-centro {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.grade-centro svg {
+  color: var(--cor-roxo);
+}
+
+/* Girador pequeno no centro (gerando). */
+.grade-girador {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  border: 2px solid color-mix(in srgb, var(--cor-primaria) 30%, transparent);
+  border-top-color: var(--cor-primaria);
+  pointer-events: none;
+  animation: grade-girar 0.9s linear infinite;
+}
+
+/* Brilho que varre o retângulo (gerando), 1.6 s. */
+.grade-varredura {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--cor-primaria) 30%, transparent),
+    transparent
+  );
+  transform: translateX(-100%);
+  pointer-events: none;
+  animation: grade-varredura 1.6s linear infinite;
+}
+
+.grade-pulso {
+  animation: grade-pulso 1.2s ease-in-out infinite;
+}
+
+/* Legenda: amostra com o mesmo visual do estado. */
+.grade-legenda {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.9rem;
+  margin: 0;
+  padding: 0;
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+}
+
+.grade-legenda-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.grade-amostra {
+  --espessura: 2px;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: var(--espessura) solid transparent;
+}
+
+.grade-amostra.grade-parte-fora {
+  border-style: dashed;
+}
+
+/* ----- Movimento ----- */
+
+@keyframes grade-varredura {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(200%);
+  }
+}
+
+@keyframes grade-pulso {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.25);
+    opacity: 1;
+  }
+}
+
+@keyframes grade-girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grade-imagem {
+    transition: none;
+  }
+
+  .grade-varredura {
+    display: none;
+  }
+
+  .grade-pulso {
+    animation: none;
+  }
+
+  .grade-progresso-preenchido {
+    transition: none;
+  }
+}

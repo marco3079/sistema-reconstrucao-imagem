@@ -1,0 +1,1056 @@
+/* ===== Oficina (tela do projeto). Só variáveis de ui/estilo.css. ===== */
+
+/* ----- Cabeçalho do projeto ----- */
+.oficina-cabecalho {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.oficina-voltar {
+  color: var(--cor-primaria);
+  font-weight: 600;
+  text-decoration: none;
+  align-self: flex-start;
+}
+
+.oficina-voltar:hover {
+  text-decoration: underline;
+}
+
+.oficina-titulo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.oficina-titulo h1 {
+  margin: 0;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+.oficina-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ----- Situação: trilha dos 8 passos + faixa do momento ----- */
+.oficina-situacao {
+  display: grid;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  min-width: 0;
+}
+
+.oficina-trilha {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 0;
+  padding: 0.25rem 0 0.5rem;
+  list-style: none;
+  overflow-x: auto;
+  min-width: 0;
+}
+
+.oficina-trilha-item {
+  position: relative;
+  flex: 1 0 120px;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  gap: 0.3rem;
+  padding: 0 0.35rem;
+  text-align: center;
+  min-width: 0;
+}
+
+/* Linha ligando o círculo deste passo ao próximo. */
+.oficina-trilha-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: calc(50% + 18px);
+  right: calc(-50% + 18px);
+  height: 2px;
+  background: var(--cor-borda);
+}
+
+.oficina-trilha-feito:not(:last-child)::after {
+  background: var(--cor-verde);
+}
+
+.oficina-trilha-circulo {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--cor-borda);
+  background: var(--cor-superficie);
+  color: var(--cor-texto-suave);
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+/* Passo em que o usuário precisa agir: contorno tracejado laranja. */
+.oficina-trilha-circulo-voce {
+  border-style: dashed;
+  border-color: var(--cor-laranja);
+}
+
+.oficina-trilha-feito .oficina-trilha-circulo {
+  background: var(--cor-verde);
+  border-color: var(--cor-verde);
+  color: var(--cor-sobre-primaria);
+}
+
+.oficina-trilha-atual .oficina-trilha-circulo {
+  background: var(--cor-primaria);
+  border-color: var(--cor-primaria);
+  color: var(--cor-sobre-primaria);
+}
+
+.oficina-trilha-titulo {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--cor-texto);
+  overflow-wrap: anywhere;
+}
+
+.oficina-trilha-depois .oficina-trilha-titulo {
+  color: var(--cor-texto-suave);
+  font-weight: 500;
+}
+
+.oficina-trilha-atual .oficina-trilha-titulo {
+  color: var(--cor-primaria);
+}
+
+.oficina-trilha-quem {
+  font-size: 0.72rem;
+  padding: 0 0.45rem;
+  border-radius: 999px;
+  background: var(--cor-superficie-2);
+  border: 1px solid var(--cor-borda);
+  color: var(--cor-texto-suave);
+}
+
+@media (min-width: 900px) {
+  .oficina-trilha {
+    overflow-x: visible;
+  }
+}
+
+.oficina-momento {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  background: var(--cor-superficie);
+  min-width: 0;
+}
+
+.oficina-momento-texto {
+  display: grid;
+  gap: 0.25rem;
+  min-width: 0;
+  flex: 1 1 280px;
+}
+
+.oficina-momento-etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: var(--cor-texto-suave);
+}
+
+.oficina-momento-titulo {
+  font-size: 1rem;
+  overflow-wrap: anywhere;
+}
+
+.oficina-momento-descricao {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--cor-texto-suave);
+}
+
+.oficina-momento-acao {
+  flex: none;
+}
+
+.oficina-momento-aprovacao {
+  background: var(--cor-laranja-suave);
+  border: 2px solid var(--cor-laranja);
+}
+
+.oficina-momento-aprovacao .oficina-momento-etiqueta {
+  color: var(--cor-texto);
+}
+
+/* A cor de destaque fica no ícone da etiqueta, não no texto (contraste). */
+.oficina-momento-icone {
+  display: inline-flex;
+  color: var(--cor-aviso);
+}
+
+.oficina-momento-voce {
+  background: var(--cor-primaria-suave);
+  border-color: var(--cor-primaria);
+}
+
+.oficina-momento-voce .oficina-momento-etiqueta {
+  color: var(--cor-primaria);
+}
+
+.oficina-momento-equipe {
+  background: var(--cor-superficie);
+}
+
+.oficina-momento-parada {
+  border-color: var(--cor-perigo);
+}
+
+.oficina-momento-parada .oficina-momento-etiqueta {
+  color: var(--cor-perigo);
+}
+
+.oficina-momento-concluido {
+  background: var(--cor-verde-suave);
+  border-color: var(--cor-verde);
+}
+
+.oficina-momento-concluido .oficina-momento-etiqueta {
+  color: var(--cor-texto);
+}
+
+.oficina-momento-concluido .oficina-momento-icone {
+  color: var(--cor-sucesso);
+}
+
+/* Bolinha que pulsa quando a equipe está trabalhando. */
+.oficina-momento-ponto {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--cor-primaria);
+  animation: oficina-pulsar 1.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oficina-momento-ponto {
+    animation: none;
+  }
+}
+
+/* Rótulo "Telas", acima das abas. */
+.oficina-telas-rotulo {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--cor-texto-suave);
+}
+
+/* ----- Passos (stepper) ----- */
+.oficina-passos {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.5rem;
+}
+
+.oficina-passo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  min-height: var(--altura-toque);
+  padding: 0.5rem 0.75rem;
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  text-align: left;
+  cursor: pointer;
+}
+
+.oficina-passo:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+.oficina-passo-ativo {
+  border-color: var(--cor-primaria);
+  background: var(--cor-primaria-suave);
+  color: var(--cor-primaria);
+}
+
+.oficina-passo-numero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid currentColor;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.oficina-passo-ativo .oficina-passo-numero {
+  background: var(--cor-primaria);
+  color: var(--cor-sobre-primaria);
+  border-color: var(--cor-primaria);
+}
+
+.oficina-passo-texto {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.oficina-passo-texto small {
+  color: var(--cor-texto-suave);
+  font-size: 0.78rem;
+}
+
+.oficina-passo-atencao {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--cor-aviso);
+  color: var(--cor-sobre-primaria);
+  font-weight: 800;
+  font-size: 0.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Aba que resolve a pendência do usuário: ponto laranja no canto de cima à esquerda. */
+.oficina-passo-sua-vez {
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--cor-laranja);
+  border: 2px solid var(--cor-superficie);
+}
+
+/* ----- Corpo: etapa + painel de agentes ----- */
+.oficina-corpo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.oficina-etapa {
+  min-width: 0;
+}
+
+.oficina-lateral {
+  min-width: 0;
+}
+
+@media (min-width: 1100px) {
+  .oficina-corpo {
+    grid-template-columns: minmax(0, 1fr) 340px;
+    align-items: start;
+  }
+
+  .oficina-lateral {
+    position: sticky;
+    top: 16px;
+  }
+}
+
+/* Aba "Equipe ao vivo": conteúdo na largura toda, sem o painel lateral. */
+.oficina-corpo.oficina-corpo-tela-cheia {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* "Equipe ao vivo" não é passo da restauração: fica separada à direita. */
+.oficina-passos > li.oficina-passo-separado {
+  margin-left: auto;
+}
+
+.oficina-passo-separado .oficina-passo {
+  border-style: dashed;
+}
+
+/* ----- Visualizador ----- */
+.oficina-visualizador {
+  background-color: var(--cor-superficie);
+  background-image: repeating-conic-gradient(var(--cor-borda) 0% 25%, var(--cor-superficie) 0% 50%);
+  background-size: 20px 20px;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio);
+  padding: 0.5rem;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.oficina-palco {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.oficina-palco-desenhando {
+  cursor: crosshair;
+  touch-action: none;
+}
+
+.oficina-palco img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: fill;
+  -webkit-user-drag: none;
+}
+
+.oficina-camada {
+  position: absolute;
+  inset: 0;
+}
+
+.oficina-camada-desenhando .oficina-regiao {
+  pointer-events: none;
+}
+
+.oficina-regiao {
+  --cor-regiao: var(--cor-primaria);
+  position: absolute;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  border: 2px solid var(--cor-regiao);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--cor-regiao) 16%, transparent);
+  cursor: pointer;
+}
+
+.oficina-regiao:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+.oficina-regiao-FALTANDO,
+.oficina-regiao-DANIFICADO {
+  --cor-regiao: var(--cor-perigo);
+}
+
+.oficina-regiao-BORRADO,
+.oficina-regiao-RUIDO,
+.oficina-regiao-BAIXA_RESOLUCAO {
+  --cor-regiao: var(--cor-aviso);
+}
+
+.oficina-regiao-DESBOTADO,
+.oficina-regiao-EXPOSICAO,
+.oficina-regiao-OUTRO {
+  --cor-regiao: var(--cor-primaria);
+}
+
+.oficina-regiao-resolvida {
+  --cor-regiao: var(--cor-sucesso);
+  border-style: dashed;
+}
+
+.oficina-regiao-ignorada {
+  --cor-regiao: var(--cor-texto-suave);
+  opacity: 0.5;
+}
+
+.oficina-regiao-selecionada {
+  border-width: 3px;
+  z-index: 2;
+}
+
+.oficina-regiao-inteira {
+  background: none;
+  border-width: 1px;
+  border-radius: 0;
+  pointer-events: none;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.oficina-regiao-etiqueta {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  max-width: calc(100% - 8px);
+  padding: 0.1rem 0.4rem;
+  border-radius: 6px;
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  border: 1px solid var(--cor-borda);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+.oficina-rascunho {
+  position: absolute;
+  box-sizing: border-box;
+  border: 2px dashed var(--cor-primaria);
+  background: color-mix(in srgb, var(--cor-primaria) 14%, transparent);
+  pointer-events: none;
+}
+
+/* ----- Blocos da análise ----- */
+.oficina-etapa-analise {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.oficina-barra-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.oficina-dica {
+  margin: 0;
+  color: var(--cor-primaria);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.oficina-blocos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  align-items: start;
+  min-width: 0;
+}
+
+.oficina-pequeno {
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+  margin: 0 0 0.5rem;
+}
+
+.oficina-subtitulo {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0.75rem 0 0.4rem;
+}
+
+.oficina-medidor {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.oficina-qualidade {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.oficina-qualidade small {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--cor-texto-suave);
+}
+
+.oficina-qualidade-boa {
+  color: var(--cor-sucesso);
+}
+
+.oficina-qualidade-media {
+  color: var(--cor-aviso);
+}
+
+.oficina-qualidade-ruim {
+  color: var(--cor-perigo);
+}
+
+.oficina-barra {
+  position: relative;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--cor-superficie-2);
+  border: 1px solid var(--cor-borda);
+  overflow: hidden;
+  min-width: 60px;
+  flex: 1;
+}
+
+.oficina-barra > span {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 999px;
+  background: var(--cor-primaria);
+}
+
+.oficina-barra-boa > span {
+  background: var(--cor-sucesso);
+}
+
+.oficina-barra-media > span {
+  background: var(--cor-aviso);
+}
+
+.oficina-barra-ruim > span {
+  background: var(--cor-perigo);
+}
+
+.oficina-metricas {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+.oficina-metrica {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr) 36px;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.oficina-metrica b {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.oficina-resolucao {
+  font-size: 0.85rem;
+  color: var(--cor-texto-suave);
+  margin: 0.25rem 0 0;
+}
+
+.oficina-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.oficina-lista li {
+  display: grid;
+  gap: 0.25rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.oficina-lista li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.oficina-lista p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* ----- Partes com problema ----- */
+.oficina-partes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.oficina-parte {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-pequeno);
+  background: var(--cor-superficie);
+  cursor: pointer;
+  display: grid;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.oficina-parte:hover {
+  border-color: var(--cor-primaria);
+}
+
+.oficina-parte-selecionada {
+  border-color: var(--cor-primaria);
+  background: var(--cor-primaria-suave);
+  box-shadow: 0 0 0 1px var(--cor-primaria) inset;
+}
+
+.oficina-parte-linha {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.oficina-parte-nome {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-weight: 700;
+  color: var(--cor-texto);
+  text-align: left;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.oficina-parte-nome:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+.oficina-parte p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--cor-texto-suave);
+}
+
+.oficina-parte-origem {
+  font-size: 0.78rem;
+  color: var(--cor-texto-suave);
+}
+
+.oficina-parte-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+
+.oficina-parte-acoes .botao {
+  min-height: 36px;
+}
+
+.oficina-vazio {
+  padding: 1rem 0;
+  text-align: center;
+  color: var(--cor-texto-suave);
+  margin: 0;
+}
+
+.oficina-modal-acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* ----- Painel de agentes ----- */
+.oficina-agentes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.oficina-agentes-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.oficina-agentes-cabecalho .cartao-titulo {
+  margin: 0;
+}
+
+.oficina-trabalhos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+.oficina-trabalho {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.oficina-pulso-selo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.oficina-pulso {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: oficina-pulsar 1.2s ease-in-out infinite;
+}
+
+@keyframes oficina-pulsar {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.7);
+  }
+}
+
+.oficina-linha-tempo {
+  max-height: 55vh;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+  min-width: 0;
+}
+
+.oficina-eventos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.oficina-evento {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr);
+  gap: 0.6rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: var(--raio-pequeno);
+  min-width: 0;
+}
+
+.oficina-evento-revisao {
+  background: var(--cor-primaria-suave);
+}
+
+.oficina-evento-erro {
+  color: var(--cor-perigo);
+}
+
+.oficina-evento-corpo {
+  min-width: 0;
+}
+
+.oficina-evento-cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  color: var(--cor-texto-suave);
+}
+
+.oficina-evento-cabecalho strong {
+  color: var(--cor-texto);
+  font-size: 0.85rem;
+}
+
+.oficina-evento-erro .oficina-evento-cabecalho strong {
+  color: var(--cor-perigo);
+}
+
+.oficina-evento p {
+  margin: 0;
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+.oficina-agente {
+  width: 12px;
+  height: 12px;
+  margin-top: 0.3rem;
+  border-radius: 50%;
+  background: var(--cor-texto-suave);
+}
+
+.oficina-agente-maestro {
+  background: var(--cor-primaria);
+}
+
+.oficina-agente-analista {
+  background: var(--cor-roxo);
+}
+
+.oficina-agente-cartografo {
+  background: var(--cor-verde);
+}
+
+.oficina-agente-restaurador {
+  background: var(--cor-laranja);
+}
+
+.oficina-agente-gerador-canva {
+  background: var(--cor-info);
+}
+
+.oficina-agente-revisor {
+  background: var(--cor-sucesso);
+}
+
+.oficina-agente-sistema {
+  background: var(--cor-texto-suave);
+}
+
+.oficina-agente-conservador {
+  background: var(--cor-primaria);
+}
+
+.oficina-agente-inspetor {
+  background: var(--cor-verde);
+}
+
+.oficina-plano {
+  font-size: 0.88rem;
+  background: var(--cor-primaria-suave);
+  border-radius: var(--raio-pequeno);
+  padding: 0.5rem 0.7rem;
+  margin: 0.5rem 0 0;
+}
+
+/* ----- Partes da grade e elementos (tela Análise) ----- */
+.oficina-regiao-NENHUM {
+  --cor-regiao: var(--cor-texto-suave);
+}
+
+/* Elementos: contorno mais forte. Células: contorno fino (a selecionada volta a ficar forte). */
+.oficina-regiao-elemento {
+  border-width: 3px;
+}
+
+.oficina-regiao-celula {
+  border-width: 1px;
+}
+
+.oficina-regiao-celula.oficina-regiao-selecionada {
+  border-width: 3px;
+}
+
+.oficina-resumo-partes {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.oficina-bloco-partes {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.oficina-grupo-categoria {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.oficina-categoria {
+  margin: 0.4rem 0 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--cor-texto-suave);
+}
+
+.oficina-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.oficina-filtro {
+  min-height: var(--altura-toque);
+  padding: 0.3rem 0.85rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: 999px;
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.oficina-filtro:focus-visible {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 2px;
+}
+
+.oficina-filtro[aria-pressed='true'] {
+  border-color: var(--cor-primaria);
+  background: var(--cor-primaria-suave);
+  color: var(--cor-primaria);
+}
+
+/* Grade: uma linha compacta por célula. */
+.oficina-partes-grade {
+  gap: 0.35rem;
+}
+
+.oficina-parte.oficina-parte-compacta {
+  padding: 0.35rem 0.6rem;
+  gap: 0.25rem;
+}
+
+.oficina-parte-compacta .oficina-parte-linha {
+  gap: 0.3rem;
+}
+
+.oficina-parte-compacta .oficina-parte-acoes .botao {
+  min-height: 32px;
+}
+
+/* ----- Laudo: linha de subtítulo por categoria ----- */
+.oficina-laudo-grupo th {
+  background: var(--cor-superficie-2);
+  color: var(--cor-texto);
+  font-weight: 700;
+  text-align: left;
+}

@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.env
+.env.local
+*.log
+.DS_Store
+.claude/
+!agentes/.claude/
+.vscode/
+/CLAUDE.md
+dados/
+agentes/.mcp.json
+agentes/.claude/restaura-ativo.json
+backups/
+/atualizacao/
+agentes/cenas/

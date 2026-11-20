@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "restaura": {
+      "type": "http",
+      "url": "http://localhost:3095/mcp",
+      "headers": {
+        "Authorization": "Bearer COLE_AQUI_O_TOKEN_DOS_AGENTES"
+      }
+    }
+  }
+}

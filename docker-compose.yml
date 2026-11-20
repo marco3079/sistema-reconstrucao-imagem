@@ -1,0 +1,76 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: restaura
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-restaura}
+      POSTGRES_DB: restaura
+    ports:
+      - "127.0.0.1:${DB_PORT:-5435}:5432"
+    volumes:
+      - dados_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U restaura -d restaura"]
+      interval: 5s
+      retries: 10
+    restart: unless-stopped
+
+  api:
+    build: ./server
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: "postgresql://restaura:${POSTGRES_PASSWORD:-restaura}@db:5432/restaura?schema=public"
+      JWT_SECRET: ${JWT_SECRET:-troque-este-segredo-de-exemplo}
+      PORT: "3000"
+      ADMIN_NOME: ${ADMIN_NOME:-Administrador}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@restaura.local}
+      ADMIN_SENHA: ${ADMIN_SENHA:-admin1234}
+      # Token que a sessão do Claude Code (equipe de agentes) usa para ligar no servidor MCP
+      AGENTES_TOKEN: ${AGENTES_TOKEN:-}
+      # Endereço do site visto pelo navegador (usado no retorno do login do Canva)
+      URL_PUBLICA: ${URL_PUBLICA:-http://localhost:8095}
+      URL_MCP: "http://localhost:${API_PORT:-3095}/mcp"
+      DIR_ARQUIVOS: /dados/arquivos
+      TZ: ${FUSO_HORARIO:-America/Sao_Paulo}
+    volumes:
+      - dados_arquivos:/dados/arquivos
+      # Conversa com o atualizador (versão instalada, pedido e situação da atualização).
+      - ./atualizacao:/atualizacao
+      # Cópias do banco feitas antes de cada atualização (a tela lista; quem restaura é o atualizador).
+      - ./backups:/backups:ro
+    ports:
+      - "127.0.0.1:${API_PORT:-3095}:3000"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:3000/api/saude').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+  web:
+    build: ./client
+    depends_on:
+      api:
+        condition: service_healthy
+    ports:
+      - "${WEB_PORT:-8095}:80"
+    restart: unless-stopped
+
+  # Atualiza o sistema pelo botão da tela (Atualização): copia o banco, baixa o último commit e reconstrói a API e
+  # o site. Tem acesso ao Docker do computador e à pasta do projeto; conversa com a API só pela pasta atualizacao/.
+  atualizador:
+    build: ./atualizador
+    environment:
+      NOME_DO_COMPUTADOR: ${COMPUTERNAME:-${HOSTNAME:-}}
+      TZ: ${FUSO_HORARIO:-America/Sao_Paulo}
+    volumes:
+      - .:/projeto
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
+
+volumes:
+  dados_db:
+  dados_arquivos:

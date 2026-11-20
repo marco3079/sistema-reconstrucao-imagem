@@ -1,0 +1,10 @@
+{
+  "name": "Restaura",
+  "short_name": "Restaura",
+  "description": "Reconstrução de imagens por partes, com referências e uma equipe de agentes.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f6fb",
+  "theme_color": "#1d4ed8",
+  "icons": [{ "src": "/logo.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

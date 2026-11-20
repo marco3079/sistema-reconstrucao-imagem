@@ -1,0 +1,58 @@
+/* ===== Conta: Meu perfil e Usuários ===== */
+
+/* Os cartões de Meu perfil ficam em uma coluna; a partir de 900 px, lado a lado. */
+.conta-grade {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  min-width: 0;
+}
+
+@media (min-width: 900px) {
+  .conta-grade {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.conta-identidade {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-bottom: 1rem;
+  min-width: 0;
+}
+
+.conta-identidade strong {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.conta-suave {
+  display: block;
+  color: var(--cor-texto-suave);
+  overflow-wrap: anywhere;
+}
+
+/* Campo só de leitura (e-mail): mesma aparência dos campos, em tom discreto. */
+.conta-leitura {
+  background: var(--cor-superficie-2);
+  color: var(--cor-texto-suave);
+}
+
+.conta-rodape {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+/* Botões de texto dentro da coluna Ações da tabela. */
+.conta-acoes-linha {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem;
+}
